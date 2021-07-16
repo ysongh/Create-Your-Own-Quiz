@@ -1,15 +1,13 @@
 <template>
-  <div class="home">
-    <h1>Create Your Own Quiz</h1>
-  </div>
+  <h1>Create Your Own Quiz</h1>
 </template>
 
 <script>
-// @ is an alias to /src
 
-export default {
-  name: 'Home',
-  components: {
+  export default {
+    name: 'Home',
+
+    components: {
+    },
   }
-}
 </script>
