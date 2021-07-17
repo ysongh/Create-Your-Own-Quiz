@@ -38,7 +38,7 @@
           <html lang="en" dir="ltr">
             <head>
               <meta charset="utf-8">
-              <title>Skynet Certificate</title>
+              <title>Quiz</title>
               <meta name="description" content="Certificate">
               <meta name="viewport" content="width=device-width, initial-scale=1">
             </head>

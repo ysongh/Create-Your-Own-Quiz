@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Quiz</title>
+  <meta name="description" content="Certificate">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .btn.correct {
+      background-color: green;
+    }
+
+    .btn.wrong {
+      background-color: red;
+    }
+
+    .hide {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Quiz</h1>
+
+  <div class="container">
+    <div id="question-container" class="hide">
+      <div id="question">
+        Question
+      </div>
+      <div id="answer-buttons" class="btn-grid">
+        <button class="btn">Answer 1</button>
+        <button class="btn">Answer 2</button>
+        <button class="btn">Answer 3</button>
+        <button class="btn">Answer 4</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="start-btn" class="start-btn btn">Start</button>
+      <button id="next-btn" class="next-btn btn hide">Next</button>
+    </div>
+  </div>
+</body>
+<script>
+  const startButton = document.getElementById("start-btn");
+  const nextButton = document.getElementById("next-btn");
+  const questionContainerElement = document.getElementById("question-container");
+  const questionElement = document.getElementById("question");
+  const answerButtonsElement = document.getElementById("answer-buttons");
+  
+  let currentQuestionIndex;
+
+  startButton.addEventListener("click", startQuiz);
+  nextButton.addEventListener("click", () => {
+    currentQuestionIndex++;
+    setNextQuestion();
+  })
+
+  function startQuiz(){
+    startButton.classList.add("hide");
+    questionContainerElement.classList.remove("hide");
+    currentQuestionIndex = 0;
+    setNextQuestion();
+  }
+
+  function setNextQuestion() {
+    resetState();
+    showQuestion(questions[currentQuestionIndex]);
+  }
+
+  function showQuestion(question) {
+    questionElement.innerHTML = question.question;
+    question.answers.forEach(answer => {
+      const button = document.createElement("button");
+      button.innerHTML = answer.text;
+      button.classList.add("btn");
+
+      if(answer.correct) {
+        button.dataset.correct = answer.correct;
+      }
+
+      button.addEventListener("click", selectAnswer);
+      answerButtonsElement.appendChild(button);
+    })
+  }
+
+  function resetState() {
+    nextButton.classList.add("hide");
+
+    while(answerButtonsElement.firstChild) {
+      answerButtonsElement.removeChild(answerButtonsElement.firstChild);
+    }
+  }
+
+  function selectAnswer(e) {
+    const selectedbutton = e.target;
+    const correct = selectedbutton.dataset.correct;
+    setStatusClass(document.body, correct);
+
+    Array.from(answerButtonsElement.children).forEach(button => {
+      setStatusClass(button, button.dataset.correct);
+    });
+
+    if(questions.length > currentQuestionIndex + 1) {
+      nextButton.classList.remove("hide");
+    }
+    else {
+      startButton.innerHTML = "Restart";
+      startButton.classList.remove("hide");
+    }
+  }
+
+  function setStatusClass(element, correct) {
+    clearStatusClass(element);
+    if(correct) {
+      element.classList.add('correct');
+    }
+    else {
+      element.classList.add('wrong');
+    }
+  }
+
+  function clearStatusClass(element) {
+    element.classList.remove('correct');
+    element.classList.remove('wrong');
+  }
+
+  const questions = [
+    {
+      question: 'Is it fun?',
+      answers: [
+        { text: '0', correct: true },
+        { text: '1', correct: false }
+      ]
+    },
+    {
+      question: 'What color is the water',
+      answers: [
+        { text: 'yellow', correct: false },
+        { text: 'blue', correct: true },
+        { text: 'green', correct: false }
+      ]
+    }
+  ]
+
+  </script>
+</html>
