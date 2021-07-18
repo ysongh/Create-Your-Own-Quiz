@@ -3,8 +3,8 @@
     <h1>Create Your Own Quiz</h1>
 
     <v-text-field
-      v-model="question1"
-      label="Question"
+      v-model="title"
+      label="Title"
       outlined
       clearable
     ></v-text-field>
@@ -21,35 +21,21 @@
 </template>
 
 <script>
-  import fleekStorage from '@fleekhq/fleek-storage-js'
-
+  import fleekStorage from '@fleekhq/fleek-storage-js';
+  
+  import { quizTemplate } from '../helpers/quizTemplate';
   import { fleekAPIKey, fleekAPISecret } from '../config';
 
   export default {
     name: 'Home',
     data: () => ({
       publicUrl: "",
-      question1: "",
+      title: "",
     }),
     methods: {
       async uploadFile(){
-        const HTMLContent = `
-          <!DOCTYPE html>
-          <html lang="en" dir="ltr">
-            <head>
-              <meta charset="utf-8">
-              <title>Quiz</title>
-              <meta name="description" content="Certificate">
-              <meta name="viewport" content="width=device-width, initial-scale=1">
-            </head>
-            <body>
-                <h1>Quiz</h1>
-
-                <h2>${this.question1}<h2>
-            </body>
-          </html>
-        `
-
+        const HTMLContent = quizTemplate(this.title);
+          
         const uploadedFile = await fleekStorage.upload({
           apiKey: fleekAPIKey,
           apiSecret: fleekAPISecret,
