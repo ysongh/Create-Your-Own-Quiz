@@ -1,4 +1,4 @@
-export const quizTemplate = title => {
+export const quizTemplate = (title, newQuestion) => {
   return `
     <!DOCTYPE html>
     <html lang="en" dir="ltr">
@@ -157,21 +157,7 @@ export const quizTemplate = title => {
       }
     
       const questions = [
-        {
-          question: 'Is it fun?',
-          answers: [
-            { text: '0', correct: true },
-            { text: '1', correct: false }
-          ]
-        },
-        {
-          question: 'What color is the water',
-          answers: [
-            { text: 'yellow', correct: false },
-            { text: 'blue', correct: true },
-            { text: 'green', correct: false }
-          ]
-        }
+        ${newQuestion}
       ]
     
       <\/script>
