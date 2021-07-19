@@ -125,7 +125,7 @@
       isAnswer2: false,
       isAnswer3: false,
       isAnswer4: false,
-      newQuestion: {}
+      questionList: []
     }),
     methods: {
       createQuestion() {
@@ -147,16 +147,15 @@
             { "text": this.answer4, "correct": this.isAnswer4 },
           ]
         }
-        console.log(newQuestion);
-        this.newQuestion = newQuestion;
+        this.questionList.push(newQuestion);
       },
       async uploadFile(){
-        const HTMLContent = quizTemplate(this.title, this.newQuestion);
+        const HTMLContent = quizTemplate(this.title, this.questionList);
           
         const uploadedFile = await fleekStorage.upload({
           apiKey: fleekAPIKey,
           apiSecret: fleekAPISecret,
-          key: 'test',
+          key: this.title,
           data: HTMLContent
         });
 

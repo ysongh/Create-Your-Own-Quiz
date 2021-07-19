@@ -156,9 +156,7 @@ export const quizTemplate = (title, newQuestion) => {
         element.classList.remove('wrong');
       }
     
-      const questions = [
-        ${newQuestion}
-      ]
+      const questions = ${JSON.stringify(newQuestion)};
     
       <\/script>
     </html>
