@@ -6,6 +6,7 @@
       v-model="title"
       label="Title"
       outlined
+      dense
       clearable
     ></v-text-field>
 
@@ -15,93 +16,82 @@
         v-model="question"
         label="Question"
         outlined
+        dense
         clearable
       ></v-text-field>
 
-      <v-row>
-        <v-col cols="9">
-          <v-text-field
-            v-model="answer1"
-            label="Answer 1"
-            outlined
-            clearable
-          ></v-text-field>
-        </v-col>
-        <v-col cols="3">
-          <v-checkbox
-            v-model="isAnswer1"
-            label="Mark Answer"
-          ></v-checkbox>
-          </v-col>
-      </v-row>
+      <div class="flexRow">
+         <v-text-field
+          v-model="answer1"
+          label="Answer 1"
+          outlined
+          dense
+          clearable
+        ></v-text-field>
+        <v-checkbox
+          v-model="isAnswer1"
+          label="Mark Answer"
+        ></v-checkbox>
+      </div>
       
-      <v-row>
-        <v-col cols="9">
-          <v-text-field
-            v-model="answer2"
-            label="Answer 2"
-            outlined
-            clearable
-          ></v-text-field>
-        </v-col>
-        <v-col cols="3">
-          <v-checkbox
-             v-model="isAnswer2"
-            label="Mark Answer"
-          ></v-checkbox>
-          </v-col>
-      </v-row>
+      <div class="flexRow">
+        <v-text-field
+          v-model="answer2"
+          label="Answer 2"
+          outlined
+          dense
+          clearable
+        ></v-text-field>
+        <v-checkbox
+          v-model="isAnswer2"
+          label="Mark Answer"
+        ></v-checkbox>
+      </div>
 
-      <v-row>
-        <v-col cols="9">
-          <v-text-field
-            v-model="answer3"
-            label="Answer 3"
-            outlined
-            clearable
-          ></v-text-field>
-        </v-col>
-        <v-col cols="3">
-          <v-checkbox
-             v-model="isAnswer3"
-            label="Mark Answer"
-          ></v-checkbox>
-          </v-col>
-      </v-row>
+      <div class="flexRow">
+        <v-text-field
+          v-model="answer3"
+          label="Answer 3"
+          outlined
+          dense
+          clearable
+        ></v-text-field>
+        <v-checkbox
+          v-model="isAnswer3"
+          label="Mark Answer"
+        ></v-checkbox>
+      </div>
 
-      <v-row>
-        <v-col cols="9">
-          <v-text-field
-            v-model="answer4"
-            label="Answer 4"
-            outlined
-            clearable
-          ></v-text-field>
-        </v-col>
-        <v-col cols="3">
-          <v-checkbox
-            v-model="isAnswer4"
-            label="Mark Answer"
-          ></v-checkbox>
-          </v-col>
-      </v-row>
+      <div class="flexRow">
+        <v-text-field
+          v-model="answer4"
+          label="Answer 4"
+          outlined
+          dense
+          clearable
+        ></v-text-field>
+        <v-checkbox
+          v-model="isAnswer4"
+          label="Mark Answer"
+        ></v-checkbox>
+      </div>
 
       <v-btn
         class="mr-4"
         @click="createQuestion()"
+        x-large
       >
         Add Question
       </v-btn>
+      <v-btn
+        color="primary"
+        elevation="2"
+        x-large
+        @click="uploadFile()"
+      >Create</v-btn>
     </form>
 
-    <v-btn
-      color="primary"
-      elevation="2"
-      x-large
-      @click="uploadFile()"
-    >Create</v-btn>
-
-    <p>{{ publicUrl }}</p>
+    <p class="link">{{ publicUrl }}</p>
   </v-container>
 </template>
 
@@ -148,6 +138,15 @@
           ]
         }
         this.questionList.push(newQuestion);
+        this.question = "";
+        this.answer1 = "";
+        this.answer2 = "";
+        this.answer3 = "";
+        this.answer4 = "";
+        this.isAnswer1 = false;
+        this.isAnswer2 = false;
+        this.isAnswer3 = false;
+        this.isAnswer4 = false;
       },
       async uploadFile(){
         const HTMLContent = quizTemplate(this.title, this.questionList);
@@ -165,3 +164,22 @@
     }
   }
 </script>
+
+<style scoped>
+  h2 {
+    margin-bottom: .7rem;
+  }
+
+  .flexRow {
+    display: flex;
+  }
+
+  .v-input--selection-controls {
+    margin-top: 5px;
+    margin-left: 7px;
+  }
+
+  .link {
+    margin-top: 1rem;
+  }
+</style>
