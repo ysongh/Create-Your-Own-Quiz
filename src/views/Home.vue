@@ -11,7 +11,22 @@
     ></v-text-field>
 
     <h2>Create questions</h2>
-    <form>
+    
+    <div v-bind:key="question.id" v-for="question of questionList" class="d-inline">
+      <v-chip
+        class="ma-2"
+        color="indigo"
+        text-color="white"
+      >
+        <v-avatar left>
+          <v-icon>mdi-file-question-outline</v-icon>
+        </v-avatar>
+        Question #{{question.id + 1}}
+      </v-chip>
+    </div>
+    
+
+    <form class="mt">
       <v-text-field
         v-model="question"
         label="Question"
@@ -129,6 +144,7 @@
         // }
 
         const newQuestion = {
+          "id": this.questionList.length,
           "question": this.question,
           "answers": [
             { "text": this.answer1, "correct": this.isAnswer1 },
@@ -166,12 +182,12 @@
 </script>
 
 <style scoped>
-  h2 {
-    margin-bottom: .7rem;
+  .mt {
+    margin-top: .7rem;
   }
 
   .flexRow {
-    display: flex;
+    display: flex !important;
   }
 
   .v-input--selection-controls {
