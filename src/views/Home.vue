@@ -11,21 +11,13 @@
     ></v-text-field>
 
     <h2>Create questions</h2>
-    
-    <div v-bind:key="question.id" v-for="question of questionList" class="d-inline">
-      <v-chip
-        class="ma-2"
-        color="indigo"
-        text-color="white"
-      >
-        <v-avatar left>
-          <v-icon>mdi-file-question-outline</v-icon>
-        </v-avatar>
-        Question #{{question.id + 1}}
-      </v-chip>
+
+    <div class="flexRow">
+      <div v-bind:key="question.id" v-for="question of questionList" class=" mr-2">
+        <QuestinModal :question="question"/>
+      </div>
     </div>
     
-
     <form class="mt">
       <v-text-field
         v-model="question"
@@ -115,9 +107,13 @@
   
   import { quizTemplate } from '../helpers/quizTemplate';
   import { fleekAPIKey, fleekAPISecret } from '../config';
+  import QuestinModal from '../components/QuestionModal.vue';
 
   export default {
     name: 'Home',
+    components: {
+      QuestinModal
+    },
     data: () => ({
       publicUrl: "",
       title: "",
