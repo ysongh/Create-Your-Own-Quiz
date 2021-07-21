@@ -28,6 +28,19 @@
             - {{ answer.text }}
           </v-card-text>
         </div>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="dialog = false"
+          >
+            Close
+          </v-btn>
+        </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
@@ -37,6 +50,11 @@
 export default {
   props: {
     question: Object
+  },
+  data () {
+    return {
+      dialog: false,
+    }
   },
 }
 </script>
