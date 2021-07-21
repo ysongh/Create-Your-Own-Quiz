@@ -14,11 +14,11 @@
 
     <div class="flexRow">
       <div v-bind:key="question.id" v-for="question of questionList" class=" mr-2">
-        <QuestinModal :question="question"/>
+        <QuestinModal :question="question" @remove-question="removeQuestion" />
       </div>
     </div>
     
-    <form class="mt">
+    <form class="mt-4">
       <v-text-field
         v-model="question"
         label="Question"
@@ -98,7 +98,7 @@
       >Create</v-btn>
     </form>
 
-    <p class="link">{{ publicUrl }}</p>
+    <p class="mt-5">{{ publicUrl }}</p>
   </v-container>
 </template>
 
@@ -160,6 +160,9 @@
         this.isAnswer3 = false;
         this.isAnswer4 = false;
       },
+      removeQuestion(id) {
+        this.questionList = this.questionList.filter(question => question.id !== id);
+      },
       async uploadFile(){
         const HTMLContent = quizTemplate(this.title, this.questionList);
           
@@ -178,10 +181,6 @@
 </script>
 
 <style scoped>
-  .mt {
-    margin-top: .7rem;
-  }
-
   .flexRow {
     display: flex !important;
   }
@@ -189,9 +188,5 @@
   .v-input--selection-controls {
     margin-top: 5px;
     margin-left: 7px;
-  }
-
-  .link {
-    margin-top: 1rem;
   }
 </style>
