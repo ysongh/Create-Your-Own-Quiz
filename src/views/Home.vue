@@ -83,19 +83,26 @@
         ></v-checkbox>
       </div>
 
-      <v-btn
-        class="mr-4"
-        @click="createQuestion()"
-        x-large
-      >
-        Add Question
-      </v-btn>
-      <v-btn
-        color="primary"
-        elevation="2"
-        x-large
-        @click="uploadFile()"
-      >Create</v-btn>
+      <div class="d-flex">
+        <v-btn
+          class="mr-4"
+          @click="createQuestion()"
+          x-large
+        >
+          Add Question
+        </v-btn>
+        <div v-if="loading">
+          <Spinner />
+        </div>
+        <div v-else>
+          <v-btn
+            color="primary"
+            elevation="2"
+            x-large
+            @click="uploadFile()"
+          >Create</v-btn>
+        </div>
+      </div>
     </form>
 
     <p class="mt-5">{{ publicUrl }}</p>
@@ -108,11 +115,13 @@
   import { quizTemplate } from '../helpers/quizTemplate';
   import { fleekAPIKey, fleekAPISecret } from '../config';
   import QuestinModal from '../components/QuestionModal.vue';
+  import Spinner from '../components/Spinner.vue';
 
   export default {
     name: 'Home',
     components: {
-      QuestinModal
+      QuestinModal,
+      Spinner
     },
     data: () => ({
       publicUrl: "",
@@ -126,7 +135,8 @@
       isAnswer2: false,
       isAnswer3: false,
       isAnswer4: false,
-      questionList: []
+      questionList: [],
+      loading: false
     }),
     methods: {
       createQuestion() {
@@ -164,18 +174,25 @@
         this.questionList = this.questionList.filter(question => question.id !== id);
       },
       async uploadFile(){
-        const HTMLContent = quizTemplate(this.title, this.questionList);
-          
-        const uploadedFile = await fleekStorage.upload({
-          apiKey: fleekAPIKey,
-          apiSecret: fleekAPISecret,
-          key: this.title,
-          data: HTMLContent
-        });
+        try {
+          this.loading = true;
+          const HTMLContent = quizTemplate(this.title, this.questionList);
+            
+          const uploadedFile = await fleekStorage.upload({
+            apiKey: fleekAPIKey,
+            apiSecret: fleekAPISecret,
+            key: this.title,
+            data: HTMLContent
+          });
 
-        console.log(uploadedFile);
-        this.publicUrl = uploadedFile.publicUrl;
-      }
+          console.log(uploadedFile);
+          this.publicUrl = uploadedFile.publicUrl;
+          this.loading = false;
+        } catch(err) {
+          console.error(err);
+          this.loading = false;
+        }
+      } 
     }
   }
 </script>
