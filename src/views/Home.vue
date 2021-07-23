@@ -100,6 +100,7 @@
             elevation="2"
             x-large
             @click="uploadFile()"
+            :disabled="!title || !questionList.length"
           >Create</v-btn>
         </div>
       </div>
