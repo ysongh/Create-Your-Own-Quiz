@@ -1,5 +1,7 @@
 <template>
   <v-container>
+    <Alert v-if="alert" :publicUrl="publicUrl" />
+
     <h1>Create Your Own Quiz</h1>
 
     <v-text-field
@@ -105,8 +107,6 @@
         </div>
       </div>
     </form>
-
-    <p class="mt-5">{{ publicUrl }}</p>
   </v-container>
 </template>
 
@@ -115,12 +115,15 @@
   
   import { quizTemplate } from '../helpers/quizTemplate';
   import { fleekAPIKey, fleekAPISecret } from '../config';
+
+  import Alert from '../components/Alert.vue';
   import QuestinModal from '../components/QuestionModal.vue';
   import Spinner from '../components/Spinner.vue';
 
   export default {
     name: 'Home',
     components: {
+      Alert,
       QuestinModal,
       Spinner
     },
@@ -137,6 +140,7 @@
       isAnswer3: false,
       isAnswer4: false,
       questionList: [],
+      alert: false,
       loading: false
     }),
     methods: {
@@ -188,6 +192,7 @@
 
           console.log(uploadedFile);
           this.publicUrl = uploadedFile.publicUrl;
+          this.alert = true;
           this.loading = false;
         } catch(err) {
           console.error(err);
