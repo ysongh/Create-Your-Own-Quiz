@@ -4,13 +4,34 @@
 
     <h1>Create Your Own Quiz</h1>
 
-    <v-text-field
-      v-model="title"
-      label="Title"
-      outlined
-      dense
-      clearable
-    ></v-text-field>
+    <v-row>
+      <v-col
+        cols="12"
+        sm="4"
+      >
+        <v-textarea
+          v-model="title"
+          label="Title"
+          rows="3"
+          outlined
+          dense
+          clearable
+       ></v-textarea>
+      </v-col>
+      <v-col
+        cols="12"
+        sm="8"
+      >
+       <v-textarea
+        outlined
+        rows="3"
+        label="Content"
+        v-model="body"
+        dense
+        clearable
+      ></v-textarea>
+      </v-col>
+    </v-row>
 
     <h2>Create questions</h2>
 
@@ -130,6 +151,7 @@
     data: () => ({
       publicUrl: "",
       title: "",
+      body: "",
       question: "",
       answer1: "",
       answer2: "",
@@ -181,7 +203,7 @@
       async uploadFile(){
         try {
           this.loading = true;
-          const HTMLContent = quizTemplate(this.title, this.questionList);
+          const HTMLContent = quizTemplate(this.title, this.body, this.questionList);
             
           const uploadedFile = await fleekStorage.upload({
             apiKey: fleekAPIKey,

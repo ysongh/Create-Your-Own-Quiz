@@ -1,4 +1,4 @@
-export const quizTemplate = (title, newQuestion) => {
+export const quizTemplate = (title, body, newQuestion) => {
   return `
     <!DOCTYPE html>
     <html lang="en" dir="ltr">
@@ -52,6 +52,8 @@ export const quizTemplate = (title, newQuestion) => {
         <h1 class="text-center">${title}</h1>
         <div class="card mx-auto">
           <div class="card-body">
+            <p id="context" class="lead">${body}</p>
+
             <div id="question-container" class="hide">
               <div id="question" class="h4">
                 Question
@@ -78,6 +80,7 @@ export const quizTemplate = (title, newQuestion) => {
       const questionContainerElement = document.getElementById("question-container");
       const questionElement = document.getElementById("question");
       const answerButtonsElement = document.getElementById("answer-buttons");
+      const context = document.getElementById("context");
       
       let currentQuestionIndex;
     
@@ -89,6 +92,7 @@ export const quizTemplate = (title, newQuestion) => {
     
       function startQuiz(){
         startButton.classList.add("hide");
+        context.classList.add("hide");
         questionContainerElement.classList.remove("hide");
         currentQuestionIndex = 0;
         setNextQuestion();
