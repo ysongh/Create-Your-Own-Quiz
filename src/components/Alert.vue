@@ -8,7 +8,7 @@
   >
     <v-row align="center">
       <v-col class="grow">
-        Your quiz was created, here is the link, <a :href="publicUrl"  target="_blank" rel="noopener noreferrer">{{publicUrl}}</a>
+        Your quiz was created, here is the link, <a :href="'https://ipfs.fleek.co/ipfs/' + publicUrl"  target="_blank" rel="noopener noreferrer">{{publicUrl}}</a>
       </v-col>
       <v-col class="shrink">
         <v-btn v-if="!isCopy" @click="copyText()">Copy Link</v-btn>
@@ -29,7 +29,7 @@ export default {
   }),
   methods: {
     copyText(){
-      navigator.clipboard.writeText(this.publicUrl);
+      navigator.clipboard.writeText("https://ipfs.fleek.co/ipfs/" + this.publicUrl);
       this.isCopy = true;
     }
   }

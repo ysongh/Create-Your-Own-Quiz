@@ -216,12 +216,12 @@
           const uploadedFile = await fleekStorage.upload({
             apiKey: fleekAPIKey,
             apiSecret: fleekAPISecret,
-            key: this.title,
+            key: `quiz/${this.title}`,
             data: HTMLContent
           });
 
           console.log(uploadedFile);
-          this.publicUrl = uploadedFile.publicUrl;
+          this.publicUrl = uploadedFile.hash;
           this.alert = true;
           this.loading = false;
         } catch(err) {

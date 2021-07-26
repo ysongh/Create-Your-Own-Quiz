@@ -1,5 +1,8 @@
 # Create Your Own Quiz
 
+## IPFS
+- Quiz are created and store on Fleek Storage. (https://ipfs.fleek.co/ipfs/ + Hash) 
+
 ## Project setup
 ```
 npm install
