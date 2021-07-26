@@ -9,14 +9,21 @@
         cols="12"
         sm="4"
       >
-        <v-textarea
+        <v-text-field
           v-model="title"
           label="Title"
-          rows="3"
           outlined
           dense
           clearable
-       ></v-textarea>
+       ></v-text-field>
+       <v-text-field
+          class="subject"
+          v-model="subject"
+          label="Subject"
+          outlined
+          dense
+          clearable
+       ></v-text-field>
       </v-col>
       <v-col
         cols="12"
@@ -151,6 +158,7 @@
     data: () => ({
       publicUrl: "",
       title: "",
+      subject: "",
       body: "",
       question: "",
       answer1: "",
@@ -203,7 +211,7 @@
       async uploadFile(){
         try {
           this.loading = true;
-          const HTMLContent = quizTemplate(this.title, this.body, this.questionList);
+          const HTMLContent = quizTemplate(this.title, this.subject, this.body, this.questionList);
             
           const uploadedFile = await fleekStorage.upload({
             apiKey: fleekAPIKey,
@@ -226,6 +234,10 @@
 </script>
 
 <style scoped>
+  .subject {
+    margin-top: -16px !important;
+  }
+
   .flexRow {
     display: flex !important;
   }

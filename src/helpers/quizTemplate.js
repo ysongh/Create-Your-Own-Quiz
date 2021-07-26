@@ -1,4 +1,4 @@
-export const quizTemplate = (title, body, newQuestion) => {
+export const quizTemplate = (title, subject, body, newQuestion) => {
   return `
     <!DOCTYPE html>
     <html lang="en" dir="ltr">
@@ -52,7 +52,10 @@ export const quizTemplate = (title, body, newQuestion) => {
         <h1 class="text-center">${title}</h1>
         <div class="card mx-auto">
           <div class="card-body">
-            <p id="context" class="lead">${body}</p>
+            <div id="context">
+              <h2 class="h4">${subject}</h2>
+              <p class="lead">${body}</p>
+            </div>
 
             <div id="question-container" class="hide">
               <div id="question" class="h4">
