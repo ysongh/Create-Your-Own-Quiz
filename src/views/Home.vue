@@ -48,93 +48,19 @@
       </div>
     </div>
     
-    <form class="mt-4">
-      <v-text-field
-        v-model="question"
-        label="Question"
-        outlined
-        dense
-        clearable
-      ></v-text-field>
+    <QuestionForm :questionList="questionList" />
 
-      <div class="flexRow">
-         <v-text-field
-          v-model="answer1"
-          label="Answer 1"
-          outlined
-          dense
-          clearable
-        ></v-text-field>
-        <v-checkbox
-          v-model="isAnswer1"
-          label="Mark Answer"
-        ></v-checkbox>
-      </div>
-      
-      <div class="flexRow">
-        <v-text-field
-          v-model="answer2"
-          label="Answer 2"
-          outlined
-          dense
-          clearable
-        ></v-text-field>
-        <v-checkbox
-          v-model="isAnswer2"
-          label="Mark Answer"
-        ></v-checkbox>
-      </div>
-
-      <div class="flexRow">
-        <v-text-field
-          v-model="answer3"
-          label="Answer 3"
-          outlined
-          dense
-          clearable
-        ></v-text-field>
-        <v-checkbox
-          v-model="isAnswer3"
-          label="Mark Answer"
-        ></v-checkbox>
-      </div>
-
-      <div class="flexRow">
-        <v-text-field
-          v-model="answer4"
-          label="Answer 4"
-          outlined
-          dense
-          clearable
-        ></v-text-field>
-        <v-checkbox
-          v-model="isAnswer4"
-          label="Mark Answer"
-        ></v-checkbox>
-      </div>
-
-      <div class="d-flex">
-        <v-btn
-          class="mr-4"
-          @click="createQuestion()"
-          x-large
-        >
-          Add Question
-        </v-btn>
-        <div v-if="loading">
-          <Spinner />
-        </div>
-        <div v-else>
-          <v-btn
-            color="primary"
-            elevation="2"
-            x-large
-            @click="uploadFile()"
-            :disabled="!title || !questionList.length"
-          >Create</v-btn>
-        </div>
-      </div>
-    </form>
+    <div v-if="loading">
+      <Spinner />
+    </div>
+    <div v-else>
+      <v-btn
+        color="primary"
+        elevation="2"
+        @click="uploadFile()"
+        :disabled="!questionList.length"
+      >Create</v-btn>
+    </div>
   </v-container>
 </template>
 
@@ -144,6 +70,7 @@
   import { quizTemplate } from '../helpers/quizTemplate';
   import { fleekAPIKey, fleekAPISecret } from '../config';
 
+  import QuestionForm from '../components/QuestionForm.vue';
   import Alert from '../components/Alert.vue';
   import QuestinModal from '../components/QuestionModal.vue';
   import Spinner from '../components/Spinner.vue';
@@ -151,6 +78,7 @@
   export default {
     name: 'Home',
     components: {
+      QuestionForm,
       Alert,
       QuestinModal,
       Spinner
@@ -160,51 +88,11 @@
       title: "",
       subject: "",
       body: "",
-      question: "",
-      answer1: "",
-      answer2: "",
-      answer3: "",
-      answer4: "",
-      isAnswer1: false,
-      isAnswer2: false,
-      isAnswer3: false,
-      isAnswer4: false,
       questionList: [],
       alert: false,
       loading: false
     }),
     methods: {
-      createQuestion() {
-        // {
-        //   question: 'What color is the water',
-        //   answers: [
-        //     { text: 'yellow', correct: false },
-        //     { text: 'blue', correct: true },
-        //     { text: 'green', correct: false }
-        //   ]
-        // }
-
-        const newQuestion = {
-          "id": this.questionList.length,
-          "question": this.question,
-          "answers": [
-            { "text": this.answer1, "correct": this.isAnswer1 },
-            { "text": this.answer2, "correct": this.isAnswer2 },
-            { "text": this.answer3, "correct": this.isAnswer3 },
-            { "text": this.answer4, "correct": this.isAnswer4 },
-          ]
-        }
-        this.questionList.push(newQuestion);
-        this.question = "";
-        this.answer1 = "";
-        this.answer2 = "";
-        this.answer3 = "";
-        this.answer4 = "";
-        this.isAnswer1 = false;
-        this.isAnswer2 = false;
-        this.isAnswer3 = false;
-        this.isAnswer4 = false;
-      },
       removeQuestion(id) {
         this.questionList = this.questionList.filter(question => question.id !== id);
       },
@@ -236,14 +124,5 @@
 <style scoped>
   .subject {
     margin-top: -16px !important;
-  }
-
-  .flexRow {
-    display: flex !important;
-  }
-
-  .v-input--selection-controls {
-    margin-top: 5px;
-    margin-left: 7px;
   }
 </style>
