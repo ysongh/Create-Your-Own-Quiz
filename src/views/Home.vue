@@ -4,41 +4,7 @@
 
     <h1>Create Your Own Quiz</h1>
 
-    <v-row>
-      <v-col
-        cols="12"
-        sm="4"
-      >
-        <v-text-field
-          v-model="title"
-          label="Title"
-          outlined
-          dense
-          clearable
-       ></v-text-field>
-       <v-text-field
-          class="subject"
-          v-model="subject"
-          label="Subject"
-          outlined
-          dense
-          clearable
-       ></v-text-field>
-      </v-col>
-      <v-col
-        cols="12"
-        sm="8"
-      >
-       <v-textarea
-        outlined
-        rows="3"
-        label="Content"
-        v-model="body"
-        dense
-        clearable
-      ></v-textarea>
-      </v-col>
-    </v-row>
+    <QuizHomePageForm />
 
     <h2>Create questions</h2>
 
@@ -66,10 +32,12 @@
 
 <script>
   import fleekStorage from '@fleekhq/fleek-storage-js';
+  import { mapGetters } from 'vuex';
   
   import { quizTemplate } from '../helpers/quizTemplate';
   import { fleekAPIKey, fleekAPISecret } from '../config';
 
+  import QuizHomePageForm from '../components/QuizHomePageForm.vue';
   import QuestionForm from '../components/QuestionForm.vue';
   import Alert from '../components/Alert.vue';
   import QuestinModal from '../components/QuestionModal.vue';
@@ -78,16 +46,15 @@
   export default {
     name: 'Home',
     components: {
+      QuizHomePageForm,
       QuestionForm,
       Alert,
       QuestinModal,
       Spinner
     },
+    computed: mapGetters(['title', 'subject', 'body']),
     data: () => ({
       publicUrl: "",
-      title: "",
-      subject: "",
-      body: "",
       questionList: [],
       alert: false,
       loading: false
@@ -122,7 +89,5 @@
 </script>
 
 <style scoped>
-  .subject {
-    margin-top: -16px !important;
-  }
+
 </style>
