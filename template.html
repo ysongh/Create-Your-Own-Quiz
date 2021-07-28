@@ -59,6 +59,7 @@
           <div id="question" class="h4">
             Question
           </div>
+          <div id="question-img"></div>
           <div id="answer-buttons" class="btn-grid">
             <button class="btn">Answer 1</button>
             <button class="btn">Answer 2</button>
@@ -80,6 +81,7 @@
   const nextButton = document.getElementById("next-btn");
   const questionContainerElement = document.getElementById("question-container");
   const questionElement = document.getElementById("question");
+  const questionImg = document.getElementById("question-img");
   const answerButtonsElement = document.getElementById("answer-buttons");
   const context = document.getElementById("context");
   
@@ -117,7 +119,14 @@
 
       button.addEventListener("click", selectAnswer);
       answerButtonsElement.appendChild(button);
-    })
+    });
+
+    if(question.image) {
+      const img = new Image();
+      img.src = question.image;
+      img.classList.add("img-fluid");
+      questionImg.appendChild(img);
+    }
   }
 
   function resetState() {
@@ -126,6 +135,8 @@
     while(answerButtonsElement.firstChild) {
       answerButtonsElement.removeChild(answerButtonsElement.firstChild);
     }
+
+    questionImg.innerHTML = null;
   }
 
   function selectAnswer(e) {
@@ -164,6 +175,7 @@
   const questions = [
     {
       question: 'Is it fun?',
+      image: 'https://images.unsplash.com/photo-1459865264687-595d652de67e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80',
       answers: [
         { text: '0', correct: true },
         { text: '1', correct: false }
