@@ -104,13 +104,14 @@ export default {
       const newQuestion = {
         "id": this.questionList.length,
         "question": this.question,
-        "answers": [
-          { "text": this.answer1, "correct": this.isAnswer1 },
-          { "text": this.answer2, "correct": this.isAnswer2 },
-          { "text": this.answer3, "correct": this.isAnswer3 },
-          { "text": this.answer4, "correct": this.isAnswer4 },
-        ]
+        "answers": []
       }
+
+      if(this.answer1) newQuestion.answers.push({ "text": this.answer1, "correct": this.isAnswer1 });
+      if(this.answer2) newQuestion.answers.push({ "text": this.answer2, "correct": this.isAnswer2 });
+      if(this.answer3) newQuestion.answers.push({ "text": this.answer3, "correct": this.isAnswer3 });
+      if(this.answer4) newQuestion.answers.push({ "text": this.answer4, "correct": this.isAnswer4 });
+
       this.questionList.push(newQuestion);
       this.question = "";
       this.answer1 = "";
