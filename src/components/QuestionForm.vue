@@ -64,6 +64,13 @@
       ></v-checkbox>
     </div>
 
+    <v-file-input
+      label="Image input"
+      outlined
+      dense
+      v-model="file"
+    ></v-file-input>
+
     <v-btn
       class="mb-4"
       @click="createQuestion()"
@@ -89,18 +96,20 @@ export default {
       isAnswer2: false,
       isAnswer3: false,
       isAnswer4: false,
+      file: null
   }),
   methods: {
     createQuestion() {
       // {
       //   question: 'What color is the water',
+      //   image: 'URL'
       //   answers: [
       //     { text: 'yellow', correct: false },
       //     { text: 'blue', correct: true },
       //     { text: 'green', correct: false }
       //   ]
       // }
-
+      
       const newQuestion = {
         "id": this.questionList.length,
         "question": this.question,
