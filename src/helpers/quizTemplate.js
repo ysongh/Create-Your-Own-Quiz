@@ -61,6 +61,7 @@ export const quizTemplate = (title, subject, body, newQuestion) => {
               <div id="question" class="h4">
                 Question
               </div>
+              <div id="question-img"></div>
               <div id="answer-buttons" class="btn-grid">
                 <button class="btn">Answer 1</button>
                 <button class="btn">Answer 2</button>
@@ -82,6 +83,7 @@ export const quizTemplate = (title, subject, body, newQuestion) => {
       const nextButton = document.getElementById("next-btn");
       const questionContainerElement = document.getElementById("question-container");
       const questionElement = document.getElementById("question");
+      const questionImg = document.getElementById("question-img");
       const answerButtonsElement = document.getElementById("answer-buttons");
       const context = document.getElementById("context");
       
@@ -119,7 +121,14 @@ export const quizTemplate = (title, subject, body, newQuestion) => {
     
           button.addEventListener("click", selectAnswer);
           answerButtonsElement.appendChild(button);
-        })
+        });
+
+        if(question.image) {
+          const img = new Image();
+          img.src = question.image;
+          img.classList.add("img-fluid");
+          questionImg.appendChild(img);
+        }
       }
     
       function resetState() {
@@ -128,6 +137,8 @@ export const quizTemplate = (title, subject, body, newQuestion) => {
         while(answerButtonsElement.firstChild) {
           answerButtonsElement.removeChild(answerButtonsElement.firstChild);
         }
+
+        questionImg.innerHTML = null;
       }
     
       function selectAnswer(e) {

@@ -81,6 +81,10 @@
 </template>
 
 <script>
+import  axios from "axios";
+
+import { pinataApiKey, pinataSecretApiKey } from '../config';
+
 export default {
   name: "QuestionForm",
   props: {
@@ -99,7 +103,7 @@ export default {
       file: null
   }),
   methods: {
-    createQuestion() {
+    async createQuestion() {
       // {
       //   question: 'What color is the water',
       //   image: 'URL'
@@ -109,9 +113,24 @@ export default {
       //     { text: 'green', correct: false }
       //   ]
       // }
-      
+
+      let data = new FormData();
+      data.append('file', this.file);
+
+      const res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", data, {
+        maxContentLength: "Infinity",
+        headers: {
+          "Content-Type": 'multipart/form-data',
+          pinata_api_key: pinataApiKey, 
+          pinata_secret_api_key: pinataSecretApiKey,
+        }
+      })
+
+      let quizImageURL = "https://gateway.pinata.cloud/ipfs/" + res.data.IpfsHash;
+
       const newQuestion = {
         "id": this.questionList.length,
+        "image": quizImageURL,
         "question": this.question,
         "answers": []
       }
@@ -131,6 +150,7 @@ export default {
       this.isAnswer2 = false;
       this.isAnswer3 = false;
       this.isAnswer4 = false;
+      this.image = null;
     }
   }
 }

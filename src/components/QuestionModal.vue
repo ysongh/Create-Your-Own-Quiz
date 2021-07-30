@@ -20,6 +20,12 @@
           {{question.question}}
         </v-card-title>
 
+        <v-img
+          v-if="question.image"
+          aspect-ratio="1.7"
+          :src="question.image"
+        ></v-img>
+
         <div v-bind:key="answer.text" v-for="answer of question.answers">
           <v-card-text v-if="answer.correct">
             - {{ answer.text }} (Answer)
