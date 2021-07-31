@@ -28,6 +28,11 @@
       margin: 20px 0;
     }
 
+    .btn-long {
+      display: flex;
+      flex-direction: column;
+    }
+
     .btn-secondary.correct {
       background-color: green !important;
     }
@@ -60,7 +65,7 @@
             Question
           </div>
           <div id="question-img"></div>
-          <div id="answer-buttons" class="btn-grid">
+          <div id="answer-buttons">
             <button class="btn">Answer 1</button>
             <button class="btn">Answer 2</button>
             <button class="btn">Answer 3</button>
@@ -107,6 +112,15 @@
   }
 
   function showQuestion(question) {
+    if(question.size === "long") {
+      answerButtonsElement.classList.add("btn-long");
+      answerButtonsElement.classList.remove("btn-grid");
+    }
+    else {
+      answerButtonsElement.classList.add("btn-grid");
+      answerButtonsElement.classList.remove("btn-long");
+    }
+
     questionElement.innerHTML = question.question;
     question.answers.forEach(answer => {
       const button = document.createElement("button");
@@ -174,8 +188,20 @@
 
   const questions = [
     {
+      question: 'How your day?',
+      image: 'https://images.unsplash.com/photo-1459865264687-595d652de67e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80',
+      size: 'long',
+      answers: [
+        { text: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto asperiores aperiam, blanditiis ratione nam labore.', correct: true },
+        { text: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto asperiores aperiam, blanditiis ratione nam labore.', correct: true },
+        { text: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto asperiores aperiam, blanditiis ratione nam labore.', correct: true },
+        { text: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto asperiores aperiam, blanditiis ratione nam labore.', correct: true }
+      ]
+    },
+    {
       question: 'Is it fun?',
       image: 'https://images.unsplash.com/photo-1459865264687-595d652de67e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80',
+      size: 'small',
       answers: [
         { text: '0', correct: true },
         { text: '1', correct: false }
@@ -183,12 +209,23 @@
     },
     {
       question: 'What color is the water',
+      size: 'small',
       answers: [
         { text: 'yellow', correct: false },
         { text: 'blue', correct: true },
         { text: 'green', correct: false }
       ]
-    }
+    },
+    {
+      question: 'How you feeling?',
+      size: 'long',
+      answers: [
+        { text: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto asperiores aperiam, blanditiis ratione nam labore.', correct: true },
+        { text: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto asperiores aperiam, blanditiis ratione nam labore.', correct: true },
+        { text: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto asperiores aperiam, blanditiis ratione nam labore.', correct: true },
+        { text: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto asperiores aperiam, blanditiis ratione nam labore.', correct: true }
+      ]
+    },
   ]
 
   </script>
