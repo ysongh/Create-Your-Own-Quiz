@@ -29,6 +29,11 @@ export const quizTemplate = (title, subject, body, newQuestion) => {
           gap: 10px;
           margin: 20px 0;
         }
+
+        .btn-long {
+          display: flex;
+          flex-direction: column;
+        }
     
         .btn-secondary.correct {
           background-color: green !important;
@@ -62,7 +67,7 @@ export const quizTemplate = (title, subject, body, newQuestion) => {
                 Question
               </div>
               <div id="question-img"></div>
-              <div id="answer-buttons" class="btn-grid">
+              <div id="answer-buttons">
                 <button class="btn">Answer 1</button>
                 <button class="btn">Answer 2</button>
                 <button class="btn">Answer 3</button>
@@ -109,6 +114,15 @@ export const quizTemplate = (title, subject, body, newQuestion) => {
       }
     
       function showQuestion(question) {
+        if(question.size === "long") {
+          answerButtonsElement.classList.add("btn-long");
+          answerButtonsElement.classList.remove("btn-grid");
+        }
+        else {
+          answerButtonsElement.classList.add("btn-grid");
+          answerButtonsElement.classList.remove("btn-long");
+        }
+        
         questionElement.innerHTML = question.question;
         question.answers.forEach(answer => {
           const button = document.createElement("button");

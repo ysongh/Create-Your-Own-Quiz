@@ -107,30 +107,35 @@ export default {
       // {
       //   question: 'What color is the water',
       //   image: 'URL'
+      //   size: 'long',
       //   answers: [
       //     { text: 'yellow', correct: false },
       //     { text: 'blue', correct: true },
       //     { text: 'green', correct: false }
       //   ]
       // }
+      let quizImageURL = null;
 
-      let data = new FormData();
-      data.append('file', this.file);
+      if(this.file){
+        let data = new FormData();
+        data.append('file', this.file);
 
-      const res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", data, {
-        maxContentLength: "Infinity",
-        headers: {
-          "Content-Type": 'multipart/form-data',
-          pinata_api_key: pinataApiKey, 
-          pinata_secret_api_key: pinataSecretApiKey,
-        }
-      })
+        const res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", data, {
+          maxContentLength: "Infinity",
+          headers: {
+            "Content-Type": 'multipart/form-data',
+            pinata_api_key: pinataApiKey, 
+            pinata_secret_api_key: pinataSecretApiKey,
+          }
+        })
 
-      let quizImageURL = "https://gateway.pinata.cloud/ipfs/" + res.data.IpfsHash;
+        quizImageURL = "https://gateway.pinata.cloud/ipfs/" + res.data.IpfsHash;
+      }
 
       const newQuestion = {
         "id": this.questionList.length,
         "image": quizImageURL,
+        "size": "small",
         "question": this.question,
         "answers": []
       }
@@ -139,6 +144,9 @@ export default {
       if(this.answer2) newQuestion.answers.push({ "text": this.answer2, "correct": this.isAnswer2 });
       if(this.answer3) newQuestion.answers.push({ "text": this.answer3, "correct": this.isAnswer3 });
       if(this.answer4) newQuestion.answers.push({ "text": this.answer4, "correct": this.isAnswer4 });
+      
+      const limited = 10;
+      if(this.answer1.length > limited || this.answer2.length > limited || this.answer3.length > limited || this.answer4.length > limited) newQuestion.size = "long"
 
       this.questionList.push(newQuestion);
       this.question = "";
