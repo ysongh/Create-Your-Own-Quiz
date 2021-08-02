@@ -26,13 +26,19 @@
           :src="question.image"
         ></v-img>
 
-        <div v-bind:key="answer.text" v-for="answer of question.answers">
-          <v-card-text v-if="answer.correct">
-            - {{ answer.text }} (Answer)
-          </v-card-text>
-          <v-card-text v-else>
-            - {{ answer.text }}
-          </v-card-text>
+        <div v-bind:key="answer.text" v-for="answer of question.answers" class="pl-5">
+          <div v-if="answer.correct" class="d-flex">
+            <v-icon>mdi-arrow-right-bold</v-icon> 
+            <v-card-text>
+              {{ answer.text }} (Answer)
+            </v-card-text>
+          </div>
+          <div v-else class="d-flex">
+            <v-icon>mdi-arrow-right-bold-outline</v-icon> 
+            <v-card-text>
+              {{ answer.text }}
+            </v-card-text>
+          </div>
         </div>
 
         <v-divider></v-divider>
@@ -76,7 +82,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>
