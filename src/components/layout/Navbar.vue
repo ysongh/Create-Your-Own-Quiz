@@ -2,7 +2,7 @@
   <v-app-bar
     app
     dense
-    color="primary"
+    color="light-blue darken-1"
     dark
   >
     <v-icon class="mr-2">mdi-file</v-icon>

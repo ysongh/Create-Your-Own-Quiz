@@ -11,8 +11,8 @@
         Your quiz was created, here is the link, <a :href="'https://ipfs.fleek.co/ipfs/' + publicUrl"  target="_blank" rel="noopener noreferrer">{{publicUrl}}</a>
       </v-col>
       <v-col class="shrink">
-        <v-btn v-if="!isCopy" @click="copyText()">Copy Link</v-btn>
-        <v-btn v-else>Copied</v-btn>
+        <v-btn color="amber darken-4" v-if="!isCopy" @click="copyText()">Copy Link</v-btn>
+        <v-btn color="amber darken-4" v-else>Copied</v-btn>
       </v-col>
     </v-row>
   </v-alert>
