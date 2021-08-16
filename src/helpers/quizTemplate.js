@@ -75,8 +75,9 @@ export const quizTemplate = (title, subject, body, newQuestion) => {
               </div>
             </div>
     
-            <div class="controls">
+            <div class="controls d-flex align-items-center">
               <button id="start-btn" class="start-btn btn btn-primary">Start</button>
+              <p id="question-total" class="mt-3 ms-2"># Question</p>
               <button id="next-btn" class="next-btn btn btn-primary hide">Next</button>
             </div>
           </div>
@@ -86,6 +87,7 @@ export const quizTemplate = (title, subject, body, newQuestion) => {
     <script>
       const startButton = document.getElementById("start-btn");
       const nextButton = document.getElementById("next-btn");
+      const questionTotal = document.getElementById("question-total");
       const questionContainerElement = document.getElementById("question-container");
       const questionElement = document.getElementById("question");
       const questionImg = document.getElementById("question-img");
@@ -103,6 +105,7 @@ export const quizTemplate = (title, subject, body, newQuestion) => {
       function startQuiz(){
         startButton.classList.add("hide");
         context.classList.add("hide");
+        questionTotal.classList.add("hide");
         questionContainerElement.classList.remove("hide");
         currentQuestionIndex = 0;
         setNextQuestion();
@@ -189,7 +192,9 @@ export const quizTemplate = (title, subject, body, newQuestion) => {
       }
     
       const questions = ${JSON.stringify(newQuestion)};
-    
+
+      questionTotal.innerHTML = '${newQuestion.length} Questions';
+      
       <\/script>
     </html>
   `
