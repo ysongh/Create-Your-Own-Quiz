@@ -56,7 +56,8 @@ export const quizTemplate = (title, subject, body, newQuestion) => {
       <div class="container">
         <h1 class="text-center">${title}</h1>
         <div class="card mx-auto">
-          <div class="card-body">
+          <div class="card-body position-relative">
+            <div id="question-number" class="position-absolute top-0 end-0 mt-2 me-2 hide">2</div>
             <div id="context">
               <h2 class="h4">${subject}</h2>
               <p class="lead">${body}</p>
@@ -88,6 +89,7 @@ export const quizTemplate = (title, subject, body, newQuestion) => {
       const startButton = document.getElementById("start-btn");
       const nextButton = document.getElementById("next-btn");
       const questionTotal = document.getElementById("question-total");
+      const questionNumber = document.getElementById("question-number");
       const questionContainerElement = document.getElementById("question-container");
       const questionElement = document.getElementById("question");
       const questionImg = document.getElementById("question-img");
@@ -106,6 +108,7 @@ export const quizTemplate = (title, subject, body, newQuestion) => {
         startButton.classList.add("hide");
         context.classList.add("hide");
         questionTotal.classList.add("hide");
+        questionNumber.classList.remove("hide");
         questionContainerElement.classList.remove("hide");
         currentQuestionIndex = 0;
         setNextQuestion();
@@ -114,6 +117,7 @@ export const quizTemplate = (title, subject, body, newQuestion) => {
       function setNextQuestion() {
         resetState();
         showQuestion(questions[currentQuestionIndex]);
+        questionNumber.innerHTML = '# ' + (currentQuestionIndex + 1);
       }
     
       function showQuestion(question) {
