@@ -2,42 +2,90 @@
   <v-container>
     <Alert v-if="alert" :publicUrl="publicUrl" />
 
-    <v-sheet
-      class="pa-4 mb-3 "
-      color="white"
-      elevation="1"
+    <v-stepper
+      v-model="e6"
+      vertical
     >
-      <h1 class="text-h5 mb-2">Set quiz starting page content</h1>
-      <QuizHomePageForm />
-    </v-sheet>
-   
-    <v-sheet
-      class="pa-4"
-      color="white"
-      elevation="1"
-    >
-      <h2 class="text-h5">Create questions</h2>
+      <v-stepper-step
+        :complete="e6 > 1"
+        step="1"
+      >
+        Set quiz starting page content
+        <small>This is the quiz start page</small>
+      </v-stepper-step>
 
-      <div class="flexRow">
-        <div v-bind:key="question.id" v-for="question of questionList" class=" mr-2">
-          <QuestinModal :question="question" @remove-question="removeQuestion" />
-        </div>
-      </div>
-      
-      <QuestionForm :questionList="questionList" />
-
-      <div v-if="loading">
-        <Spinner />
-      </div>
-      <div v-else>
+      <v-stepper-content step="1">
+        <section>
+          <h2 class="text-h5 mb-5">Add the following content</h2>
+          <QuizHomePageForm />
+        </section>
         <v-btn
           color="primary"
-          elevation="2"
-          @click="uploadFile()"
-          :disabled="!questionList.length"
-        >Create</v-btn>
-      </div>
-    </v-sheet>
+          @click="e6 = 2"
+        >
+          Continue
+        </v-btn>
+      </v-stepper-content>
+
+      <v-stepper-step
+        :complete="e6 > 2"
+        step="2"
+      >
+        Create questions
+      </v-stepper-step>
+
+      <v-stepper-content step="2">
+        <section>
+          <h2 class="text-h5">You can add as many quesitons as you want</h2>
+
+          <div class="flexRow">
+            <div v-bind:key="question.id" v-for="question of questionList" class=" mr-2">
+              <QuestinModal :question="question" @remove-question="removeQuestion" />
+            </div>
+          </div>
+          
+          <QuestionForm :questionList="questionList" />
+        </section>
+        <v-btn
+          color="primary"
+          @click="e6 = 3"
+        >
+          Continue
+        </v-btn>
+        <v-btn text @click="e6 = 1">
+          Back
+        </v-btn>
+      </v-stepper-content>
+
+      <v-stepper-step
+        :complete="e6 > 3"
+        step="3"
+      >
+        Review and submit
+      </v-stepper-step>
+
+      <v-stepper-content step="3">
+        <div class="flexRow mb-5">
+          <div v-bind:key="question.id" v-for="question of questionList" class=" mr-2">
+            <QuestinModal :question="question" @remove-question="removeQuestion" />
+          </div>
+        </div>
+        <div v-if="loading">
+          <Spinner />
+        </div>
+        <div v-else>
+          <v-btn
+            color="primary"
+            elevation="2"
+            @click="uploadFile()"
+            :disabled="!questionList.length"
+          >Create</v-btn>
+          <v-btn text @click="e6 = 2">
+            Cancel
+          </v-btn>
+        </div>
+      </v-stepper-content>
+    </v-stepper>
   </v-container>
 </template>
 
@@ -67,6 +115,7 @@
     data: () => ({
       publicUrl: "",
       questionList: [],
+      e6: 1,
       alert: false,
       loading: false
     }),
