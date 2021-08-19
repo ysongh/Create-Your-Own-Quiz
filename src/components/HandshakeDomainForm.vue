@@ -71,7 +71,7 @@ export default {
                         
       //const tld = 'aaronrasor';
       const url = new URL(`https://namebase.io/next/domain-manager/${this.tld}/records`);
-      const redirectUrl = 'http://localhost:8080/about'
+      const redirectUrl = `http://localhost:8080/result/${this.subDomain}/${this.tld}`
       const encodedRedirectUrl = encodeURIComponent(encodeURIComponent(redirectUrl.toString()));
 
       url.searchParams.append('records', btoa(JSON.stringify(records_json)));
