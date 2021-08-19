@@ -70,20 +70,48 @@
             <QuestinModal :question="question" @remove-question="removeQuestion" />
           </div>
         </div>
+        <h3 v-if="publicUrl">Do you have Handshake Domain that you would like to point to your quiz?</h3>
         <div v-if="loading">
           <Spinner />
         </div>
         <div v-else>
           <v-btn
+            v-if="!publicUrl"
             color="primary"
             elevation="2"
             @click="uploadFile()"
             :disabled="!questionList.length"
           >Create</v-btn>
-          <v-btn text @click="e6 = 2">
-            Cancel
+          <v-btn
+            v-else
+            color="primary"
+            @click="e6 = 4"
+          >
+            Continue
+          </v-btn>
+          <v-btn text @click="e6 = 1">
+            Done
           </v-btn>
         </div>
+      </v-stepper-content>
+
+      <v-stepper-step
+        :complete="e6 > 4"
+        step="4"
+      >
+        Add Handshake Domain
+        <small>Optional</small>
+      </v-stepper-step>
+
+      <v-stepper-content step="4">
+        <section>
+          <h2 class="text-h5">Enter the following</h2>
+
+          <HandshakeDomainForm :HTMLContent="HTMLContent" />
+        </section>
+        <v-btn text @click="e6 = 3">
+          Back
+        </v-btn>
       </v-stepper-content>
     </v-stepper>
   </v-container>
@@ -100,6 +128,7 @@
   import QuestionForm from '../components/QuestionForm.vue';
   import Alert from '../components/Alert.vue';
   import QuestinModal from '../components/QuestionModal.vue';
+  import HandshakeDomainForm from '../components/HandshakeDomainForm.vue';
   import Spinner from '../components/Spinner.vue';
 
   export default {
@@ -109,6 +138,7 @@
       QuestionForm,
       Alert,
       QuestinModal,
+      HandshakeDomainForm,
       Spinner
     },
     computed: mapGetters(['title', 'subject', 'body']),
@@ -116,6 +146,7 @@
       publicUrl: "",
       questionList: [],
       e6: 1,
+      HTMLContent: "",
       alert: false,
       loading: false
     }),
@@ -126,13 +157,13 @@
       async uploadFile(){
         try {
           this.loading = true;
-          const HTMLContent = quizTemplate(this.title, this.subject, this.body, this.questionList);
+          this.HTMLContent = quizTemplate(this.title, this.subject, this.body, this.questionList);
             
           const uploadedFile = await fleekStorage.upload({
             apiKey: fleekAPIKey,
             apiSecret: fleekAPISecret,
             key: `quiz/${this.title}`,
-            data: HTMLContent
+            data: this.HTMLContent
           });
 
           console.log(uploadedFile);
