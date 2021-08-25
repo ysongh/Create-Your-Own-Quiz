@@ -8,14 +8,14 @@ A web app where you can create a quiz and generate a website of quiz on IPFS
 - Vue 2
 - Vuex 3
 - Vuetify
-- Fleek Storage
-- Pinata
+- Fleek Storage (Store a website of the quiz)
+- Pinata (Store the quiz images)
 - Skynet
 - Handshake Domain
 
-## IPFS
-- Quiz are created and store on Fleek Storage. (https://ipfs.fleek.co/ipfs/ + HASH)
-- Quiz images are store on Pinata. (https://gateway.pinata.cloud/ipfs/ + HASH)
+## Links to example use of IPFS
+- (Fleek Storage) <https://github.com/ysongh/Create-Your-Own-Quiz/blob/master/src/views/Home.vue#L162>
+- (Pinata) <https://github.com/ysongh/Create-Your-Own-Quiz/blob/master/src/components/QuestionForm.vue#L123>
 
 ## Project setup
 ```
