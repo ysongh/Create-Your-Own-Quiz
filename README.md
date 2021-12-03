@@ -43,3 +43,6 @@ npm run build
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Helpful Links
+- https://docs.ipfs.io/how-to/websites-on-ipfs/link-a-domain/#handshake
