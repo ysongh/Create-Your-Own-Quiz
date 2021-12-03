@@ -26,15 +26,11 @@
 </template>
 
 <script>
-import { SkynetClient } from 'skynet-js';
-
-const portal = 'https://siasky.net/';
-const skynetClient = new SkynetClient(portal);
 
 export default {
   name: "HandshakeDomainForm",
   props: {
-    HTMLContent: String
+    publicUrl: String
   },
   data: () => ({
     tld: "",
@@ -42,32 +38,15 @@ export default {
   }),
   methods: {
     async redirectToNamebase(){
-      const webDirectory = {
-        'index.html': new File(
-          [this.HTMLContent],
-          'index.html',
-          {
-            type: 'text/html',
-          }
-        )
-      };
-
-      // Upload quiz
-      const data = await skynetClient.uploadDirectory(
-        webDirectory,
-        'quiz'
-      );
-      console.log(data)
-
-      const skylink = `sia://${data.skylink.slice(4)}`;
-      console.log(skylink)
+      const ifpsLink = `ipfs://${this.publicUrl}`;
+      console.log(ifpsLink);
 
       const records_json = [
         { type: "TXT",
           host: `_contenthash.${this.subDomain}`, 
-          value: skylink,
+          value: ifpsLink,
           ttl: 60 },
-        { type: "CNAME", host: this.subDomain, value: "sia.namebase.io.", ttl: 3600 }]
+        { type: "CNAME", host: this.subDomain, value: "ipfs.namebase.io.", ttl: 3600 }]
                         
       //const tld = 'aaronrasor';
       const url = new URL(`https://namebase.io/next/domain-manager/${this.tld}/records`);

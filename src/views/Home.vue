@@ -107,7 +107,7 @@
         <section>
           <h2 class="text-h5">Enter the following</h2>
 
-          <HandshakeDomainForm :HTMLContent="HTMLContent" />
+          <HandshakeDomainForm :publicUrl="publicUrl" />
         </section>
         <v-btn text @click="e6 = 3">
           Back
