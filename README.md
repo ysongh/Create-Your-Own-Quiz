@@ -10,7 +10,6 @@ A web app where you can create a quiz and generate a website of quiz on IPFS
 - Vuetify
 - Fleek Storage (Store a website of the quiz)
 - Pinata (Store the quiz images)
-- Skynet
 - Handshake Domain
 
 ## Links to example use of IPFS
@@ -28,7 +27,6 @@ export const fleekAPIKey = "<Get API Key from Fleek>";
 export const fleekAPISecret = "<Get API Secret from Fleek>";
 export const pinataApiKey = "<Get API key from Pinata>";
 export const pinataSecretApiKey = "<Get API Secret from Pinata>;
-export const seedphase = <Enter any words>;
 ```
 
 ### Compiles and hot-reloads for development
